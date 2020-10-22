@@ -32,7 +32,7 @@ export const Navbar = () => {
         <span style={{ color: 'silver', fontSize: '1rem' }}>{' beta'}</span>
       </h1>
       <div className="nav-links">
-        <a href="https://www.github.com/" target="_blank">
+        <a href="https://github.com/cjslack/grok-debugger" target="_blank">
           <GitHub />
           <span>GitHub</span>
         </a>
