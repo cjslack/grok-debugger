@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitHub, Mail, List, DollarSign } from 'react-feather';
+import { GitHub, Mail } from 'react-feather';
 
 const styles = {
   navbar: {
