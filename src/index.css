@@ -148,7 +148,14 @@ li {
 .react-codemirror2 {
   max-width: 100%;
   height: 100%;
-  border: 1px solid silver !important;
+}
+
+.CodeMirror {
+  border: 1px solid #555;
+}
+
+.CodeMirror-focused {
+  border: 1px solid #888;
 }
 
 .btn {
