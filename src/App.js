@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { GrokCollection } from 'grok-js';
 import { Navbar } from './components/Navbar';
+import { SaveModal } from './components/SaveModal';
 import { UnControlled as CodeMirrorTextarea } from 'react-codemirror2';
-import { FileText } from 'react-feather';
+import { FileText, Save, Book, Copy } from 'react-feather';
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/mode/simple';
 import 'codemirror/addon/hint/show-hint';
@@ -10,6 +11,7 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/selection/mark-selection';
 import 'codemirror/addon/scroll/simplescrollbars';
 import grokMode from './codemirror/grok';
+import { LoadModal } from './components/LoadModal';
 
 function App() {
   CodeMirror.defineSimpleMode('grokMode', grokMode);
@@ -36,6 +38,8 @@ function App() {
     { collection: 'ruby', active: false },
   ]);
   let [patterns, setPatterns] = useState([]);
+  let [savedPatterns, setSavedPatterns] = useState([]);
+  let [showModal, setShowModal] = useState(null);
 
   const firstUpdate = useRef(true);
 
@@ -91,6 +95,14 @@ function App() {
 
   useEffect(() => {
     onLoad();
+    setSavedPatterns(
+      Object.entries(localStorage).map((entry) => {
+        return {
+          title: entry[0],
+          pattern: entry[1],
+        };
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -110,6 +122,10 @@ function App() {
     console.log(collection);
     let copy = [...collections];
     return copy.map((c) => (c.collection === collection ? { ...c, active: !c.active } : c));
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
   };
 
   return (
@@ -133,7 +149,12 @@ function App() {
         </div>
         <div className="main">
           <div className="pattern-wrapper">
-            <h3>Grok Pattern</h3>
+            <div className="input-menu">
+              <h3>Grok Pattern</h3>
+              <Copy size="1.25rem" onClick={() => copyToClipboard(pattern)} />
+              <Save size="1.25rem" onClick={() => setShowModal('SAVE')} />
+              <Book size="1.25rem" onClick={() => setShowModal('LOAD')} />
+            </div>
             <CodeMirrorTextarea
               style={{ height: 'auto !important' }}
               autoScroll={false}
@@ -172,7 +193,10 @@ function App() {
             />
           </div>
           <div className="samples-wrapper">
-            <h3>Sample Text</h3>
+            <div className="input-menu">
+              <h3>Samples</h3>
+              <Copy size="1.25rem" onClick={() => copyToClipboard(sample)} />
+            </div>
             <CodeMirrorTextarea
               style={{ height: '100% !important' }}
               options={{ scrollbarStyle: 'overlay', viewportMargin: 0, lineWrapping: true, lineNumbers: true, theme: 'material-darker', mode: null }}
@@ -187,7 +211,10 @@ function App() {
         </div>
         <div className="result">
           <div className="output-wrapper">
-            <h3>Output</h3>
+            <div className="input-menu">
+              <h3>Output</h3>
+              <Copy size="1.25rem" />
+            </div>
             <CodeMirrorTextarea
               style={{ height: '100% !important' }}
               options={{ scrollbarStyle: 'overlay', viewportMargin: 0, readOnly: true, theme: 'material-darker', mode: { name: 'javascript', json: true } }}
@@ -195,6 +222,12 @@ function App() {
             />
           </div>
         </div>
+        {
+          {
+            SAVE: <SaveModal setShowModal={setShowModal} savedPatterns={savedPatterns} setSavedPatterns={setSavedPatterns} pattern={pattern} />,
+            LOAD: <LoadModal setShowModal={setShowModal} savedPatterns={savedPatterns} setSavedPatterns={setSavedPatterns} setPattern={setPattern} />,
+          }[showModal]
+        }
       </div>
     </div>
   );

@@ -35,6 +35,10 @@ h5 {
   display: block;
 }
 
+h3 {
+  margin-right: 0;
+}
+
 td,
 th {
   height: 1rem;
@@ -46,6 +50,11 @@ ul {
 
 li {
   list-style-type: none;
+}
+
+button {
+  border: none;
+  width: 100%;
 }
 
 .nav-links {
@@ -113,6 +122,148 @@ li {
   overflow: hidden;
 }
 
+/* MODAL */
+
+.modal {
+  background-color: rgba(255, 255, 255, 0.2);
+  position: fixed;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal-container {
+  background-color: #222;
+  padding: 1rem;
+  border: 1px solid siver;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 50vw;
+}
+
+.modal-header {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #444;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-header h3 {
+  margin: 0 0 0 0.5rem;
+}
+
+.modal-header svg {
+  color: silver;
+}
+
+.modal-header svg:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content input {
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.modal-footer {
+  margin-top: 1rem;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  background-color: salmon;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.notification span {
+  margin-left: 0.5rem;
+}
+
+.error {
+  background-color: salmon;
+}
+
+.warn {
+  background-color: palegoldenrod;
+  color: #000;
+}
+
+.row div {
+  display: flex;
+  align-items: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 0.5rem;
+}
+
+.headers div {
+  display: flex;
+  align-items: center;
+}
+
+.pattern-grid {
+  background-color: #333;
+}
+
+.pattern-grid .headers {
+  font-weight: bold;
+  color: #fff;
+  background-color: #444;
+  display: grid;
+  grid-template-columns: 2fr 6fr 3rem 3rem;
+  padding: 0.5rem;
+  border: 1px solid #444;
+  height: 3rem;
+}
+
+.pattern-grid .row {
+  display: grid;
+  padding: 0.5rem;
+  grid-template-columns: 2fr 6fr 3rem 3rem;
+  border: 1px solid #666;
+  border-top: none;
+}
+
+.pattern-grid .row:hover {
+  background-color: rgba(137, 221, 255, 0.5);
+}
+
+.btn.delete {
+  background-color: salmon;
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn.edit {
+  background-color: #89ddff;
+  width: 2rem;
+  height: 2rem;
+}
+
 /* DONT TOUCH */
 
 .pattern-wrapper {
@@ -121,6 +272,21 @@ li {
   flex-direction: column;
   padding: 0.5rem 0.5rem 0rem 0.5rem;
   position: relative;
+}
+
+.input-menu {
+  display: flex;
+  align-items: center;
+}
+
+.input-menu svg {
+  color: silver;
+  margin-left: 1rem;
+}
+
+.input-menu svg:hover {
+  color: #fff;
+  cursor: pointer;
 }
 
 .output-wrapper {
@@ -162,17 +328,20 @@ li {
   background-color: #89ddff;
   opacity: 0.9;
   padding: 0.5rem;
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
   color: var(--dark);
   display: flex;
   align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.6);
 }
 
-.btn :nth-child(1) {
+button.btn :nth-child(1) {
   margin-right: 0.5rem;
 }
 
 .btn:hover {
   opacity: 1;
+  cursor: pointer;
 }
