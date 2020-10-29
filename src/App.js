@@ -151,9 +151,15 @@ function App() {
           <div className="pattern-wrapper">
             <div className="input-menu">
               <h3>Grok Pattern</h3>
-              <Copy size="1.25rem" onClick={() => copyToClipboard(pattern)} />
-              <Save size="1.25rem" onClick={() => setShowModal('SAVE')} />
-              <Book size="1.25rem" onClick={() => setShowModal('LOAD')} />
+              <div title="copy">
+                <Copy size="1.25rem" onClick={() => copyToClipboard(pattern)} />
+              </div>
+              <div title="save">
+                <Save size="1.25rem" onClick={() => setShowModal('SAVE')} />
+              </div>
+              <div title="load">
+                <Book size="1.25rem" onClick={() => setShowModal('LOAD')} />
+              </div>
             </div>
             <CodeMirrorTextarea
               style={{ height: 'auto !important' }}
@@ -195,7 +201,9 @@ function App() {
           <div className="samples-wrapper">
             <div className="input-menu">
               <h3>Samples</h3>
-              <Copy size="1.25rem" onClick={() => copyToClipboard(sample)} />
+              <div title="copy">
+                <Copy size="1.25rem" onClick={() => copyToClipboard(sample)} />
+              </div>
             </div>
             <CodeMirrorTextarea
               style={{ height: '100% !important' }}
@@ -213,7 +221,9 @@ function App() {
           <div className="output-wrapper">
             <div className="input-menu">
               <h3>Output</h3>
-              <Copy size="1.25rem" />
+              <div title="copy">
+                <Copy size="1.25rem" />
+              </div>
             </div>
             <CodeMirrorTextarea
               style={{ height: '100% !important' }}
