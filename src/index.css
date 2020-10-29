@@ -151,11 +151,11 @@ li {
 }
 
 .CodeMirror {
-  border: 1px solid #555;
+  border: 1px solid #666;
 }
 
 .CodeMirror-focused {
-  border: 1px solid #888;
+  border: 1px solid silver;
 }
 
 .btn {
