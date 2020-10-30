@@ -222,7 +222,7 @@ function App() {
             <div className="input-menu">
               <h3>Output</h3>
               <div title="copy">
-                <Copy size="1.25rem" />
+                <Copy size="1.25rem" onClick={() => copyToClipboard(result)} />
               </div>
             </div>
             <CodeMirrorTextarea
