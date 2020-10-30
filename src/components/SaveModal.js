@@ -25,7 +25,7 @@ export const SaveModal = ({ setShowModal, pattern, savedPatterns, setSavedPatter
 
   return (
     <div className="modal">
-      <div className="modal-container" style={{ width: '25rem' }}>
+      <div className="modal-container" style={{ width: '30rem' }}>
         <div className="modal-header">
           <h3>Save Pattern</h3>
           <X size="1.25rem" onClick={() => setShowModal(null)} />

@@ -22,27 +22,28 @@ export const LoadModal = ({ setShowModal, savedPatterns, setSavedPatterns, setPa
         </div>
         <div className="modal-content" style={{ boxShadow: '2px 2px rgba(0, 0, 0, 0.6)', borderRadius: '5px' }}>
           <div className="pattern-grid">
-            <div className="headers">
+            <div className="grid-headers">
               <div>Title</div>
               <div>Pattern</div>
             </div>
-            {savedPatterns.map((pattern) => {
-              return (
-                <div className="row" key={pattern.title}>
-                  <div>{pattern.title}</div>
-                  <div>{pattern.pattern}</div>
-                  <div className="btn edit">
-                    <Edit2 size="1rem" onClick={() => handleEdit(pattern.title)} />
+            <div className="grid-body">
+              {savedPatterns.map((pattern) => {
+                return (
+                  <div className="row" key={pattern.title}>
+                    <div>{pattern.title}</div>
+                    <div>{pattern.pattern}</div>
+                    <div className="btn edit">
+                      <Edit2 size="1rem" onClick={() => handleEdit(pattern.title)} />
+                    </div>
+                    <div className="btn delete" onClick={() => handleDelete(pattern.title)}>
+                      <X size="1rem" />
+                    </div>
                   </div>
-                  <div className="btn delete" onClick={() => handleDelete(pattern.title)}>
-                    <X size="1rem" />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
-        <div className="modal-footer"></div>
       </div>
     </div>
   );

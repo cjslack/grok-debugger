@@ -129,10 +129,11 @@ button {
   position: fixed;
   z-index: 3;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 100%;
+  padding-top: 5vh;
   top: 0;
   left: 0;
 }
@@ -171,8 +172,8 @@ button {
   cursor: pointer;
 }
 
-.modal-content {
-  max-height: 80vh;
+.grid-body {
+  max-height: 75vh;
   overflow-y: auto;
 }
 
@@ -212,15 +213,16 @@ button {
 }
 
 .row div {
-  display: flex;
-  align-items: center;
+  display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  width: 100%;
+  padding-top: 0.5rem;
   margin: 0 0.5rem;
 }
 
-.headers div {
+.grid-headers div {
   display: flex;
   align-items: center;
 }
@@ -229,7 +231,7 @@ button {
   background-color: #333;
 }
 
-.pattern-grid .headers {
+.pattern-grid .grid-headers {
   font-weight: bold;
   color: #fff;
   background-color: #444;
@@ -262,6 +264,10 @@ button {
   background-color: #89ddff;
   width: 2rem;
   height: 2rem;
+}
+
+.btn > span {
+  font-size: 1rem;
 }
 
 /* DONT TOUCH */
