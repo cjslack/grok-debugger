@@ -205,6 +205,7 @@ button {
 
 .error {
   background-color: salmon;
+  color: #000;
 }
 
 .warn {
@@ -234,7 +235,7 @@ button {
 .pattern-grid .grid-headers {
   font-weight: bold;
   color: #fff;
-  background-color: #444;
+  background-color: #555;
   display: grid;
   grid-template-columns: 2fr 6fr 3rem 3rem;
   padding: 0.5rem;

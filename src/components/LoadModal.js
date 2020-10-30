@@ -20,7 +20,7 @@ export const LoadModal = ({ setShowModal, savedPatterns, setSavedPatterns, setPa
           <h3>Load Pattern</h3>
           <X size="1.25rem" onClick={() => setShowModal(null)} />
         </div>
-        <div className="modal-content" style={{ boxShadow: '2px 2px rgba(0, 0, 0, 0.6)', borderRadius: '5px' }}>
+        <div className="modal-content" style={{ boxShadow: '2px 2px rgba(0, 0, 0, 0.6)' }}>
           <div className="pattern-grid">
             <div className="grid-headers">
               <div>Title</div>

@@ -4,9 +4,13 @@ import { Save, X, XOctagon, AlertTriangle } from 'react-feather';
 export const SaveModal = ({ setShowModal, pattern, savedPatterns, setSavedPatterns }) => {
   const [title, setTitle] = useState('');
   const [showWarn, setShowWarn] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!(title && pattern)) {
+      return setShowError(true);
+    }
     localStorage.setItem(title, pattern);
     setSavedPatterns([...savedPatterns.filter((p) => p.title !== title), { title, pattern }]);
     setShowModal(null);
@@ -38,7 +42,13 @@ export const SaveModal = ({ setShowModal, pattern, savedPatterns, setSavedPatter
                 <span>This title already exists. Submit to overwrite.</span>
               </div>
             )}
-            <input value={title} onChange={(e) => setTitle(e.target.value)} name="title" placeholder="title" autoComplete="off"></input>
+            {showError && (
+              <div className="notification error">
+                <XOctagon />
+                <span>Title or pattern is blank.</span>
+              </div>
+            )}
+            <input autoFocus={true} value={title} onChange={(e) => setTitle(e.target.value)} name="title" placeholder="title" autoComplete="off"></input>
           </div>
           <div className="modal-footer">
             <button type="submit" className="btn">
