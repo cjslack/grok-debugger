@@ -22,14 +22,16 @@ const styles = {
 
 export const Navbar = () => {
   return (
-    <div style={styles.navbar}>
+    <div className="navbar" style={styles.navbar}>
       <h1>
         <span style={{ color: '#82aaff' }}>{'%{'}</span>
         <span style={{ color: '#89DDFF' }}>GROK</span>
         <span style={{ color: '#82aaff' }}>:</span>
         <span style={{ color: '#C792EA' }}>debugger</span>
         <span style={{ color: '#82aaff' }}>{'}'}</span>
-        <span style={{ color: 'silver', fontSize: '1rem' }}>{' beta'}</span>
+        <span className="beta" style={{ color: 'silver', fontSize: '1rem' }}>
+          {' beta'}
+        </span>
       </h1>
       <div className="nav-links">
         <a href="https://github.com/cjslack/grok-debugger" target="_blank">

@@ -352,3 +352,31 @@ button.btn :nth-child(1) {
   opacity: 1;
   cursor: pointer;
 }
+
+/* MEDIA QUERIES */
+
+@media (max-width: 700px) {
+  .navbar h1 {
+    font-size: 1.5rem;
+  }
+  .navbar span.beta {
+    display: none;
+  }
+  .nav-links span {
+    display: none;
+  }
+  .nav-links svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+  .menu {
+    display: none;
+  }
+  .main {
+    padding-bottom: 0;
+  }
+  .container {
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 1fr;
+  }
+}
