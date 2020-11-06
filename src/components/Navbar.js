@@ -12,6 +12,7 @@ const styles = {
     width: '100%',
     position: 'fixed',
     boxShadow: '-2px 2px rgba(0, 0, 0, .2)',
+    zIndex: 1,
   },
   navLinks: {
     display: 'flex',

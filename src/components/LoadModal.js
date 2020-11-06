@@ -32,8 +32,8 @@ export const LoadModal = ({ setShowModal, savedPatterns, setSavedPatterns, setPa
                   <div className="row" key={pattern.title}>
                     <div>{pattern.title}</div>
                     <div>{pattern.pattern}</div>
-                    <div className="btn edit">
-                      <Edit2 size="1rem" onClick={() => handleEdit(pattern.title)} />
+                    <div className="btn edit" onClick={() => handleEdit(pattern.title)}>
+                      <Edit2 size="1rem" />
                     </div>
                     <div className="btn delete" onClick={() => handleDelete(pattern.title)}>
                       <X size="1rem" />
