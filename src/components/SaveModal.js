@@ -11,7 +11,7 @@ export const SaveModal = ({ setShowModal, pattern, savedPatterns, setSavedPatter
     if (!(title && pattern)) {
       return setShowError(true);
     }
-    localStorage.setItem(title, pattern);
+    localStorage.setItem('grokdebugger-' + title, pattern);
     setSavedPatterns([...savedPatterns.filter((p) => p.title !== title), { title, pattern }]);
     setShowModal(null);
   };

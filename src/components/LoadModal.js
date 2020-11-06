@@ -3,12 +3,12 @@ import { X, Edit2 } from 'react-feather';
 
 export const LoadModal = ({ setShowModal, savedPatterns, setSavedPatterns, setPattern }) => {
   const handleDelete = (key) => {
-    localStorage.removeItem(key);
+    localStorage.removeItem('grokdebugger-' + key);
     setSavedPatterns(savedPatterns.filter((p) => p.title !== key));
   };
 
   const handleEdit = (key) => {
-    const val = localStorage.getItem(key);
+    const val = localStorage.getItem('grokdebugger-' + key);
     setPattern(val);
     setShowModal(null);
   };

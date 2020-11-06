@@ -96,12 +96,17 @@ function App() {
   useEffect(() => {
     onLoad();
     setSavedPatterns(
-      Object.entries(localStorage).map((entry) => {
-        return {
-          title: entry[0],
-          pattern: entry[1],
-        };
-      })
+      Object.entries(localStorage)
+        .map((entry) => {
+          let key = entry[0];
+          return key.substr(0, 12) === 'grokdebugger'
+            ? {
+                title: key.substr(13, key.length),
+                pattern: entry[1],
+              }
+            : { title: null, pattern: null };
+        })
+        .filter((e) => e.title !== null)
     );
   }, []);
 
