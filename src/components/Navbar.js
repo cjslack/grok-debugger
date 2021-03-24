@@ -39,10 +39,6 @@ export const Navbar = () => {
           <GitHub />
           <span>GitHub</span>
         </a>
-        <a href="mailto:cjslack94@gmail.com">
-          <Mail />
-          <span>contact</span>
-        </a>
       </div>
     </div>
   );
