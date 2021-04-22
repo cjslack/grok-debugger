@@ -1,6 +1,6 @@
 [grokdebugger.com](https://www.grokdebugger.com)
 
-This client-side application uses Webassembly to run PCRE RegEx in the browser to help you debug your Grok patterns.
+This client-side application uses WebAssembly to run PCRE RegEx in the browser to help you debug your Grok patterns.
 
 **Features:** 
 - Real-time processing (see changes as you type)
