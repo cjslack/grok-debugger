@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitHub, Mail } from 'react-feather';
+import { GitHub } from 'react-feather';
 
 const styles = {
   navbar: {
@@ -30,9 +30,6 @@ export const Navbar = () => {
         <span style={{ color: '#82aaff' }}>:</span>
         <span style={{ color: '#C792EA' }}>debugger</span>
         <span style={{ color: '#82aaff' }}>{'}'}</span>
-        <span className="beta" style={{ color: 'silver', fontSize: '1rem' }}>
-          {' beta'}
-        </span>
       </h1>
       <div className="nav-links">
         <a href="https://github.com/cjslack/grok-debugger" target="_blank">

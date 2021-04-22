@@ -49,7 +49,7 @@ function App() {
         return groks.load('/patterns/' + c.collection + '.txt').then((ids) => {
           return ids.map((id) => {
             return { id, collection: c.collection };
-          });
+          });  
         });
       })
     )
