@@ -7,7 +7,7 @@ This client-side application uses WebAssembly to run PCRE RegEx in the browser t
 - Autocomplete
 - Match highlighting
 - Syntax highlighting
-- A dozen pattern sets (Grok, firewalls, java, haproxy, etc.)
+- A dozen pattern sets (Grok, firewalls, Java, HAProxy, etc.)
 - Save patterns and load them later (uses browser localstorage)
 
 
