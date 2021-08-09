@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
-@import './codemirror/codemirror.css';
-@import '../node_modules/codemirror/theme/material-darker.css';
-@import '../node_modules/codemirror/addon/scroll/simplescrollbars.css';
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+@import "./codemirror/codemirror.css";
+@import "../node_modules/codemirror/theme/material-darker.css";
+@import "../node_modules/codemirror/addon/scroll/simplescrollbars.css";
 
 :root {
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   color: #fff;
   --dark: #333;
   --light: #f0f0f0;
@@ -84,21 +84,28 @@ button {
   display: grid;
   padding: 3rem 0 0 0;
   height: 100vh;
-  grid-template-columns: minmax(0, auto) minmax(0, 4fr) minmax(0, 2fr);
+  grid-template-columns: 224px minmax(0, 4fr) minmax(0, 2fr);
+  grid-template-areas: "menu main result";
 }
 
 .menu {
+  grid-area: "menu";
   background-color: #222;
   padding: 0.5rem;
   box-shadow: 2px -2px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .result {
+  grid-area: "result";
   overflow: hidden;
   padding: 0.5rem 0.25rem 1rem 0.25rem;
 }
 
 .main {
+  grid-area: "main";
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -252,7 +259,7 @@ button {
 }
 
 .pattern-grid .row:hover {
-  background-color: rgba(137, 221, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .btn.delete {
@@ -293,6 +300,11 @@ button {
 
 .input-menu svg:hover {
   color: #fff;
+  cursor: pointer;
+}
+
+.input-menu svg:active {
+  color: #89ddff;
   cursor: pointer;
 }
 
@@ -369,14 +381,15 @@ button.btn :nth-child(1) {
     height: 1.2rem;
     width: 1.2rem;
   }
-  .menu {
-    display: none;
-  }
   .main {
     padding-bottom: 0;
+  }
+  .menu {
+    display: none;
   }
   .container {
     grid-template-columns: auto;
     grid-template-rows: 1fr 1fr;
+    grid-template-areas: "main" "result";
   }
 }

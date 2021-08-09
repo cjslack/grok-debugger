@@ -12,6 +12,7 @@ import 'codemirror/addon/selection/mark-selection';
 import 'codemirror/addon/scroll/simplescrollbars';
 import grokMode from './codemirror/grok';
 import { LoadModal } from './components/LoadModal';
+import { Ad } from './components/Ad';
 
 function App() {
   CodeMirror.defineSimpleMode('grokMode', grokMode);
@@ -151,6 +152,7 @@ function App() {
               );
             })}
           </div>
+          <Ad />
         </div>
         <div className="main">
           <div className="pattern-wrapper">
