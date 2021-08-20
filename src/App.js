@@ -3,7 +3,7 @@ import { GrokCollection } from 'grok-js';
 import { Navbar } from './components/Navbar';
 import { SaveModal } from './components/SaveModal';
 import { UnControlled as CodeMirrorTextarea } from 'react-codemirror2';
-import { FileText, Save, Book, Copy } from 'react-feather';
+import { FileText, Save, Book, Copy, Share2, Trash2 } from 'react-feather';
 import CodeMirror from 'codemirror';
 import 'codemirror/addon/mode/simple';
 import 'codemirror/addon/hint/show-hint';
@@ -12,10 +12,14 @@ import 'codemirror/addon/selection/mark-selection';
 import 'codemirror/addon/scroll/simplescrollbars';
 import grokMode from './codemirror/grok';
 import { LoadModal } from './components/LoadModal';
+import { ShareModal } from './components/ShareModal';
 import { Ad } from './components/Ad';
 
 function App() {
   CodeMirror.defineSimpleMode('grokMode', grokMode);
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const qsParams = Object.fromEntries(urlSearchParams.entries());
 
   let [pattern, setPattern] = useState('');
   let [sample, setSample] = useState(
@@ -45,6 +49,8 @@ function App() {
   const firstUpdate = useRef(true);
 
   const onLoad = () => {
+    if (qsParams.pattern) setPattern(qsParams.pattern)
+    if (qsParams.sample) setSample(qsParams.sample)
     Promise.all(
       collections.map((c) => {
         return groks.load('/patterns/' + c.collection + '.txt').then((ids) => {
@@ -167,6 +173,9 @@ function App() {
               <div title="load">
                 <Book size="1.25rem" onClick={() => setShowModal('LOAD')} />
               </div>
+              <div title="share">
+                <Share2 size="1.25rem" onClick={() => setShowModal('SHARE')} />
+              </div>
             </div>
             <CodeMirrorTextarea
               style={{ height: 'auto !important' }}
@@ -211,6 +220,9 @@ function App() {
               <div title="copy">
                 <Copy size="1.25rem" onClick={() => copyToClipboard(sample)} />
               </div>
+              <div title="clear">
+                <Trash2 size="1.25rem" onClick={() => setSample()} />
+              </div>
             </div>
             <CodeMirrorTextarea
               style={{ height: '100% !important' }}
@@ -243,6 +255,7 @@ function App() {
           {
             SAVE: <SaveModal setShowModal={setShowModal} savedPatterns={savedPatterns} setSavedPatterns={setSavedPatterns} pattern={pattern} />,
             LOAD: <LoadModal setShowModal={setShowModal} savedPatterns={savedPatterns} setSavedPatterns={setSavedPatterns} setPattern={setPattern} />,
+            SHARE: <ShareModal setShowModal={setShowModal} pattern={pattern} sample={sample} />
           }[showModal]
         }
       </div>
