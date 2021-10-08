@@ -129,6 +129,30 @@ button {
   overflow: hidden;
 }
 
+.output-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 0.5rem;
+}
+
+.counter {
+  justify-self: flex-end;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter.all-match {
+  color: #93eea8;
+}
+
+.counter.no-match {
+  color: #f78c6c;
+}
+
 /* MODAL */
 
 .modal {

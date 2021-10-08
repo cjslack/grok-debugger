@@ -1,62 +1,64 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { GrokCollection } from 'grok-js';
-import { Navbar } from './components/Navbar';
-import { SaveModal } from './components/SaveModal';
-import { UnControlled as CodeMirrorTextarea } from 'react-codemirror2';
-import { FileText, Save, Book, Copy, Share2, Trash2 } from 'react-feather';
-import CodeMirror from 'codemirror';
-import 'codemirror/addon/mode/simple';
-import 'codemirror/addon/hint/show-hint';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/selection/mark-selection';
-import 'codemirror/addon/scroll/simplescrollbars';
-import grokMode from './codemirror/grok';
-import { LoadModal } from './components/LoadModal';
-import { ShareModal } from './components/ShareModal';
-import { Ad } from './components/Ad';
+import React, { useEffect, useState, useRef } from "react";
+import { GrokCollection } from "grok-js";
+import { Navbar } from "./components/Navbar";
+import { SaveModal } from "./components/SaveModal";
+import { UnControlled as CodeMirrorTextarea } from "react-codemirror2";
+import { FileText, Save, Book, Copy, Share2, Trash2, Check, X } from "react-feather";
+import CodeMirror from "codemirror";
+import "codemirror/addon/mode/simple";
+import "codemirror/addon/hint/show-hint";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/addon/selection/mark-selection";
+import "codemirror/addon/scroll/simplescrollbars";
+import grokMode from "./codemirror/grok";
+import { LoadModal } from "./components/LoadModal";
+import { ShareModal } from "./components/ShareModal";
+import { Ad } from "./components/Ad";
 
 function App() {
-  CodeMirror.defineSimpleMode('grokMode', grokMode);
+  CodeMirror.defineSimpleMode("grokMode", grokMode);
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const qsParams = Object.fromEntries(urlSearchParams.entries());
 
-  let [pattern, setPattern] = useState('');
+  let [pattern, setPattern] = useState("");
   let [sample, setSample] = useState(
-    'Your sample logs go here \nStart typing a pattern above for suggestions, e.g. %{WORD:word} \nNamed capture groups work too, e.g. (?<name>pattern)'
+    "Your sample logs go here \nStart typing a pattern above for suggestions, e.g. %{WORD:word} \nNamed capture groups work too, e.g. (?<name>pattern)"
   );
-  let [result, setResult] = useState('');
+  let [result, setResult] = useState("");
   let [groks, setGroks] = useState(new GrokCollection());
   let [samplesEditor, setSamplesEditor] = useState();
   let [collections, setCollections] = useState([
-    { collection: 'firewalls', active: false },
-    { collection: 'grok-patterns', active: true },
-    { collection: 'haproxy', active: false },
-    { collection: 'java', active: false },
-    { collection: 'junos', active: false },
-    { collection: 'linux-syslog', active: false },
-    { collection: 'mcollective', active: false },
-    { collection: 'mongodb', active: false },
-    { collection: 'nagios', active: false },
-    { collection: 'postgresql', active: false },
-    { collection: 'redis', active: false },
-    { collection: 'ruby', active: false },
+    { collection: "firewalls", active: false },
+    { collection: "grok-patterns", active: true },
+    { collection: "haproxy", active: false },
+    { collection: "java", active: false },
+    { collection: "junos", active: false },
+    { collection: "linux-syslog", active: false },
+    { collection: "mcollective", active: false },
+    { collection: "mongodb", active: false },
+    { collection: "nagios", active: false },
+    { collection: "postgresql", active: false },
+    { collection: "redis", active: false },
+    { collection: "ruby", active: false },
   ]);
   let [patterns, setPatterns] = useState([]);
   let [savedPatterns, setSavedPatterns] = useState([]);
   let [showModal, setShowModal] = useState(null);
+  let [matchCount, setMatchCount] = useState(0);
+  let [sampleCount, setSampleCount] = useState(0);
 
   const firstUpdate = useRef(true);
 
   const onLoad = () => {
-    if (qsParams.pattern) setPattern(qsParams.pattern)
-    if (qsParams.sample) setSample(qsParams.sample)
+    if (qsParams.pattern) setPattern(qsParams.pattern);
+    if (qsParams.sample) setSample(qsParams.sample);
     Promise.all(
       collections.map((c) => {
-        return groks.load('/patterns/' + c.collection + '.txt').then((ids) => {
+        return groks.load("/patterns/" + c.collection + ".txt").then((ids) => {
           return ids.map((id) => {
             return { id, collection: c.collection };
-          });  
+          });
         });
       })
     )
@@ -72,8 +74,12 @@ function App() {
       if (!result) return null;
       let matches = p.regexp.searchSync(sampleLine).filter((m) => m.length > 0);
       matches.forEach((m, i) => {
-        let bgColor = i === 0 ? 'rgb(230, 180, 50, 0.3)' : 'rgb(127, 191, 63, 0.4)';
-        samplesEditor.markText({ line: lineNumber, ch: m.start }, { line: lineNumber, ch: m.end }, { css: 'background-color: ' + bgColor + ' !important' });
+        let bgColor = i === 0 ? "rgb(230, 180, 50, 0.3)" : "rgb(127, 191, 63, 0.4)";
+        samplesEditor.markText(
+          { line: lineNumber, ch: m.start },
+          { line: lineNumber, ch: m.end },
+          { css: "background-color: " + bgColor + " !important" }
+        );
       });
       let data = {};
       Object.keys(result).map((key, i) => {
@@ -90,10 +96,17 @@ function App() {
       let output = [];
       const lines = samplesEditor.lineCount() - 1;
       for (let i = 0; i <= lines; i++) {
-        samplesEditor.markText({ line: i, ch: 0 }, { line: i, ch: Infinity }, { css: 'background-color: transparent !important' });
+        samplesEditor.markText(
+          { line: i, ch: 0 },
+          { line: i, ch: Infinity },
+          { css: "background-color: transparent !important" }
+        );
         let data = await parseSample(i);
         output.push(data);
       }
+      setMatchCount(output.reduce((acc, val) => (acc += +(val !== null)), 0));
+      setSampleCount(output.length);
+      console.log(output);
       setResult(JSON.stringify(output, null, 2));
     } catch (error) {
       console.error(error);
@@ -106,7 +119,7 @@ function App() {
       Object.entries(localStorage)
         .map((entry) => {
           let key = entry[0];
-          return key.substr(0, 12) === 'grokdebugger'
+          return key.substr(0, 12) === "grokdebugger"
             ? {
                 title: key.substr(13, key.length),
                 pattern: entry[1],
@@ -148,10 +161,14 @@ function App() {
           <div className="collections-wrapper">
             {collections.map((collection, i) => {
               return (
-                <div style={{ display: 'flex', alignItems: 'center' }} key={collection.collection}>
-                  <input type="checkbox" checked={collections[i].active} onChange={() => setCollections(handleToggleActive(collection.collection))} />
+                <div style={{ display: "flex", alignItems: "center" }} key={collection.collection}>
+                  <input
+                    type="checkbox"
+                    checked={collections[i].active}
+                    onChange={() => setCollections(handleToggleActive(collection.collection))}
+                  />
                   <h5>{collection.collection}</h5>
-                  <a href={'/patterns/' + collection.collection + '.txt'} target="_blank" style={{ color: 'silver' }}>
+                  <a href={"/patterns/" + collection.collection + ".txt"} target="_blank" style={{ color: "silver" }}>
                     <FileText size="1rem" />
                   </a>
                 </div>
@@ -168,24 +185,24 @@ function App() {
                 <Copy size="1.25rem" onClick={() => copyToClipboard(pattern)} />
               </div>
               <div title="save">
-                <Save size="1.25rem" onClick={() => setShowModal('SAVE')} />
+                <Save size="1.25rem" onClick={() => setShowModal("SAVE")} />
               </div>
               <div title="load">
-                <Book size="1.25rem" onClick={() => setShowModal('LOAD')} />
+                <Book size="1.25rem" onClick={() => setShowModal("LOAD")} />
               </div>
               <div title="share">
-                <Share2 size="1.25rem" onClick={() => setShowModal('SHARE')} />
+                <Share2 size="1.25rem" onClick={() => setShowModal("SHARE")} />
               </div>
             </div>
             <CodeMirrorTextarea
-              style={{ height: 'auto !important' }}
+              style={{ height: "auto !important" }}
               autoScroll={false}
               options={{
-                scrollbarStyle: 'native',
+                scrollbarStyle: "native",
                 viewportMargin: Infinity,
                 lineWrapping: true,
-                mode: 'grokMode',
-                theme: 'material-darker',
+                mode: "grokMode",
+                theme: "material-darker",
                 showHint: true,
                 hintOptions: {
                   completeSingle: false,
@@ -199,7 +216,7 @@ function App() {
                         to: cursorPos,
                         list: patterns
                           .filter((p) => collections.filter((c) => c.collection === p.collection)[0].active)
-                          .filter((p) => RegExp(keyword[1], 'i').test(p.id))
+                          .filter((p) => RegExp(keyword[1], "i").test(p.id))
                           .map((p) => p.id),
                       };
                     }
@@ -225,8 +242,15 @@ function App() {
               </div>
             </div>
             <CodeMirrorTextarea
-              style={{ height: '100% !important' }}
-              options={{ scrollbarStyle: 'overlay', viewportMargin: 0, lineWrapping: true, lineNumbers: true, theme: 'material-darker', mode: null }}
+              style={{ height: "100% !important" }}
+              options={{
+                scrollbarStyle: "overlay",
+                viewportMargin: 0,
+                lineWrapping: true,
+                lineNumbers: true,
+                theme: "material-darker",
+                mode: null,
+              }}
               value={sample}
               onChange={(editor, data, value) => setSample(value)}
               autoCursor={false}
@@ -238,24 +262,52 @@ function App() {
         </div>
         <div className="result">
           <div className="output-wrapper">
-            <div className="input-menu">
-              <h3>Output</h3>
-              <div title="copy">
-                <Copy size="1.25rem" onClick={() => copyToClipboard(result)} />
+            <div className="output-top">
+              <div className="input-menu">
+                <h3>Output</h3>
+                <div title="copy">
+                  <Copy size="1.25rem" onClick={() => copyToClipboard(result)} />
+                </div>
+              </div>
+              <div className={`counter ${!sampleCount ? "" : matchCount === sampleCount ? "all-match" : "no-match"}`}>
+                {!sampleCount ? <></> : matchCount === sampleCount ? <Check /> : <></>}
+                <span style={{ paddingLeft: "0.5rem" }}>{matchCount}</span>
+                <span>{"/"}</span>
+                <span>{sampleCount}</span>
               </div>
             </div>
             <CodeMirrorTextarea
-              style={{ height: '100% !important' }}
-              options={{ scrollbarStyle: 'overlay', viewportMargin: 0, readOnly: true, theme: 'material-darker', mode: { name: 'javascript', json: true } }}
+              style={{ height: "100% !important" }}
+              options={{
+                scrollbarStyle: "overlay",
+                viewportMargin: 0,
+                readOnly: true,
+                theme: "material-darker",
+                mode: { name: "javascript", json: true },
+              }}
               value={result}
             />
           </div>
         </div>
         {
           {
-            SAVE: <SaveModal setShowModal={setShowModal} savedPatterns={savedPatterns} setSavedPatterns={setSavedPatterns} pattern={pattern} />,
-            LOAD: <LoadModal setShowModal={setShowModal} savedPatterns={savedPatterns} setSavedPatterns={setSavedPatterns} setPattern={setPattern} />,
-            SHARE: <ShareModal setShowModal={setShowModal} pattern={pattern} sample={sample} />
+            SAVE: (
+              <SaveModal
+                setShowModal={setShowModal}
+                savedPatterns={savedPatterns}
+                setSavedPatterns={setSavedPatterns}
+                pattern={pattern}
+              />
+            ),
+            LOAD: (
+              <LoadModal
+                setShowModal={setShowModal}
+                savedPatterns={savedPatterns}
+                setSavedPatterns={setSavedPatterns}
+                setPattern={setPattern}
+              />
+            ),
+            SHARE: <ShareModal setShowModal={setShowModal} pattern={pattern} sample={sample} />,
           }[showModal]
         }
       </div>
