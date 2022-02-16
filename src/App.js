@@ -3,7 +3,7 @@ import { GrokCollection } from "grok-js";
 import { Navbar } from "./components/Navbar";
 import { SaveModal } from "./components/SaveModal";
 import { UnControlled as CodeMirrorTextarea } from "react-codemirror2";
-import { FileText, Save, Book, Copy, Share2, Trash2, Check, X } from "react-feather";
+import { FileText, Save, Book, Copy, Share2, Trash2, Check } from "react-feather";
 import CodeMirror from "codemirror";
 import "codemirror/addon/mode/simple";
 import "codemirror/addon/hint/show-hint";
