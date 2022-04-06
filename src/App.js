@@ -41,6 +41,7 @@ function App() {
     { collection: "postgresql", active: false },
     { collection: "redis", active: false },
     { collection: "ruby", active: false },
+    { collection: "postfix", active: false },
   ]);
   let [patterns, setPatterns] = useState([]);
   let [savedPatterns, setSavedPatterns] = useState([]);
