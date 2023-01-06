@@ -1,15 +1,15 @@
-import React from 'react';
-import { X, Edit2 } from 'react-feather';
+import React from "react";
+import { X, Edit2 } from "react-feather";
 
-export const LoadModal = ({ setShowModal, savedPatterns, setSavedPatterns, setPattern }) => {
-  const handleDelete = (key) => {
-    localStorage.removeItem('grokdebugger-' + key);
-    setSavedPatterns(savedPatterns.filter((p) => p.title !== key));
+export const LoadModal = ({ setShowModal, customPatterns, setCustomPatterns, setPattern }) => {
+  const handleDelete = (id) => {
+    const updatedCustomPatterns = customPatterns.filter((p) => p.id !== id);
+    setCustomPatterns(updatedCustomPatterns);
   };
 
-  const handleEdit = (key) => {
-    const val = localStorage.getItem('grokdebugger-' + key);
-    setPattern(val);
+  const handleEdit = (id) => {
+    const pattern = customPatterns.find((p) => p.id === id);
+    setPattern(pattern.pattern);
     setShowModal(null);
   };
 
@@ -17,32 +17,36 @@ export const LoadModal = ({ setShowModal, savedPatterns, setSavedPatterns, setPa
     <div className="modal">
       <div className="modal-container">
         <div className="modal-header">
-          <h3>Load Pattern</h3>
+          <h3>Edit Custom Patterns</h3>
           <X size="1.25rem" onClick={() => setShowModal(null)} />
         </div>
-        <div className="modal-content" style={{ boxShadow: '2px 2px rgba(0, 0, 0, 0.6)' }}>
-          <div className="pattern-grid">
-            <div className="grid-headers">
-              <div>Title</div>
-              <div>Pattern</div>
-            </div>
-            <div className="grid-body">
-              {savedPatterns.map((pattern) => {
-                return (
-                  <div className="row" key={pattern.title}>
-                    <div>{pattern.title}</div>
-                    <div>{pattern.pattern}</div>
-                    <div className="btn edit" onClick={() => handleEdit(pattern.title)}>
-                      <Edit2 size="1rem" />
+        <div className="modal-content" style={{ boxShadow: "2px 2px rgba(0, 0, 0, 0.6)" }}>
+          {!!customPatterns.length ? (
+            <div className="pattern-grid">
+              <div className="grid-headers">
+                <div>Name</div>
+                <div>Pattern</div>
+              </div>
+              <div className="grid-body">
+                {customPatterns.map((pattern) => {
+                  return (
+                    <div className="row" key={pattern.title}>
+                      <div>{pattern.id}</div>
+                      <div>{pattern.pattern}</div>
+                      <div className="btn edit" onClick={() => handleEdit(pattern.id)}>
+                        <Edit2 size="1rem" />
+                      </div>
+                      <div className="btn delete" onClick={() => handleDelete(pattern.id)}>
+                        <X size="1rem" />
+                      </div>
                     </div>
-                    <div className="btn delete" onClick={() => handleDelete(pattern.title)}>
-                      <X size="1rem" />
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          ) : (
+            <h4>No custom patterns yet</h4>
+          )}
         </div>
       </div>
     </div>

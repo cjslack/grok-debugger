@@ -16,6 +16,7 @@
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-scripts": "^3.4.4",
+    "react-select": "^5.7.0",
     "simplebar-react": "^2.2.1"
   },
   "scripts": {
