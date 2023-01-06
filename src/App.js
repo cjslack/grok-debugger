@@ -56,12 +56,7 @@ function App() {
     { value: "mcollective", label: "MCollective", active: false },
     { value: "mongodb", label: "MongoDB", active: false },
     { value: "nagios", label: "Nagios", active: false },
-    {
-      value: "postfix",
-      label: "Postfix",
-      active: false,
-      url: "https://raw.githubusercontent.com/whyscream/postfix-grok-patterns/master/postfix.grok",
-    },
+    { value: "postfix", label: "Postfix", active: false },
     { value: "postgresql", label: "PostgreSQL", active: false },
     { value: "rails", label: "Rails", active: false },
     { value: "redis", label: "Redis", active: false },
@@ -269,10 +264,7 @@ function App() {
               ></Select>
             </div>
             <div style={{ marginTop: 10 }}>
-              <a
-                href="https://github.com/logstash-plugins/logstash-patterns-core/tree/main/patterns/ecs-v1"
-                target="_blank"
-              >
+              <a href="https://github.com/cjslack/grok-debugger/tree/master/public/patterns" target="_blank">
                 <button className="btn secondary">
                   <ExternalLink />
                   <span>Pattern Repository</span>
