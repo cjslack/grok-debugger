@@ -8,8 +8,10 @@ This client-side application uses WebAssembly to run PCRE RegEx in the browser. 
 - Match highlighting
 - Syntax highlighting
 - Multiline debugging
-- A dozen pattern sets (Grok, firewalls, Java, HAProxy, etc.)
+- 20+ pattern sets (AWS, Grok, firewalls, Java, etc.)
+- Add more pattern sets with a URL
 - Save patterns and load them later (uses browser localstorage)
+- Write and use your own custom patterns
 
 
 ![screenshot](screenshot.png)
