@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DownloadCloud, X, XOctagon } from "react-feather";
+import { DownloadCloud, Trash2, X, XOctagon } from "react-feather";
 
 export const MorePatternsModal = ({ setShowModal, collections, setCollections, patterns, setPatterns, groks }) => {
   const urlRegex =
@@ -54,6 +54,15 @@ export const MorePatternsModal = ({ setShowModal, collections, setCollections, p
           <X size="1.25rem" onClick={() => setShowModal(null)} />
         </div>
         <form>
+          <p style={{ marginTop: 0 }}>
+            This will make a request to the URL inputted below and attempt to load the patterns from the repsonse. See
+            the
+            <a style={{ color: "#89ddff" }} href="https://github.com/cjslack/grok-debugger/tree/master/public/patterns">
+              {" "}
+              pattern repository
+            </a>{" "}
+            for example files.
+          </p>
           <div className="modal-content">
             {errorMessage && (
               <div className="notification error">
@@ -71,7 +80,6 @@ export const MorePatternsModal = ({ setShowModal, collections, setCollections, p
             />
             <input
               style={{ marginTop: 10 }}
-              autoFocus={true}
               name="title"
               placeholder="Title"
               maxLength={20}
@@ -90,7 +98,7 @@ export const MorePatternsModal = ({ setShowModal, collections, setCollections, p
             <>
               <hr style={{ marginTop: "12px" }} />
               <div>
-                <h3>Loaded Sets</h3>
+                <h3>Downloaded Sets</h3>
                 <div>
                   {collections
                     .filter((c) => c.url)
@@ -99,7 +107,7 @@ export const MorePatternsModal = ({ setShowModal, collections, setCollections, p
                         <div className="set-item" key={c.value}>
                           <div>{c.label}</div>
                           <div className="btn delete" onClick={() => handleDelete(c.value)}>
-                            <X size="1rem" />
+                            <Trash2 size="1rem" />
                           </div>
                         </div>
                       );

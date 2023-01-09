@@ -12,6 +12,8 @@ export const ShareModal = ({ setShowModal, pattern, sample }) => {
   const onLoad = async () => {
     setUrl(
       window.location.origin + "?pattern=" + encodeURIComponent(pattern) + "&sample=" + encodeURIComponent(sample)
+      // + "&collections=" +
+      // encodeURIComponent(JSON.stringify(collections.filter((c) => c.active)))
     );
   };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { X, Edit2 } from "react-feather";
+import { X, Edit2, Trash2 } from "react-feather";
 
 export const LoadModal = ({ setShowModal, customPatterns, setCustomPatterns, setPattern }) => {
   const handleDelete = (id) => {
@@ -37,7 +37,7 @@ export const LoadModal = ({ setShowModal, customPatterns, setCustomPatterns, set
                         <Edit2 size="1rem" />
                       </div>
                       <div className="btn delete" onClick={() => handleDelete(pattern.id)}>
-                        <X size="1rem" />
+                        <Trash2 size="1rem" />
                       </div>
                     </div>
                   );
