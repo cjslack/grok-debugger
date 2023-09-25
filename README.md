@@ -20,6 +20,7 @@ This client-side application uses WebAssembly to emulate the logstash grok libra
 - Does not support inline flag modifiers e.g. `(?i)opid=%{NOTSPACE:event_operation_id}` https://github.com/cjslack/grok-debugger/issues/6
 
 **Run locally**
+
 Must have [node.js](https://nodejs.org/en) installed
 ```
 git clone https://github.com/cjslack/grok-debugger.git
